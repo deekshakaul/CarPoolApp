@@ -1,0 +1,14 @@
+
+
+var loginReducer = (state={
+  status:''
+},action)=>{
+    switch(action.type){
+      case "LOGIN":
+        console.log('inside login action from reducer',action);
+        return Object.assign({},state,{status:action.response.status});
+
+      default:
+        return state;
+    }
+}
