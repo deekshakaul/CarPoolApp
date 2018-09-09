@@ -4,6 +4,7 @@ import BookRide from './BookRide';
 import {Modal,ModalBody,ModalFooter,ModalHeader,Button} from 'reactstrap';
 import Header from './Header';
 import noRides from '../showRidesBackground.jpg';
+import RideBooked from '../RideBooked.jpg';
 
 class ShowRides extends Component {
 
@@ -39,15 +40,14 @@ class ShowRides extends Component {
   render() {
     console.log(this.props.rides)
     var message = sessionStorage.getItem('rideId')!=0? "Ride already booked":"No rides Available"
+    var imageName = sessionStorage.getItem('rideId')!=0 ?RideBooked: noRides
     return (
       <React.Fragment>
           {
             this.props.rides.length == 0 || sessionStorage.getItem('rideId') !=0? (
               <React.Fragment>
               <div align="center">
-              <div className="alert alert-info" align="center">
-              {message}
-              </div>
+              <br/>
               <button class="btn btn-dark" value="all" onClick={()=>{
                   this.props.fetchRides("all")}
               }>Show All Rides</button>&nbsp;
@@ -58,7 +58,7 @@ class ShowRides extends Component {
                   this.props.fetchRides("to")}
               }>To Telstra</button>&nbsp;
               <br/><br/>
-              <img style={{width:"25%"}} src={noRides} alt="noRides"/>
+              <img style={{width:"25%"}} src={imageName} alt="noRides"/>
 
               </div>
               </React.Fragment>
@@ -124,7 +124,7 @@ class ShowRides extends Component {
                   })
 
                 }}>Book Ride</Button>{' '}
-                <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+                <Button color="secondary" onClick={this.toggle}>Close</Button>
               </ModalFooter>
             </Modal>
               </React.Fragment>

@@ -20,7 +20,7 @@ class Header extends Component {
     var username=sessionStorage.getItem('username')
     return (
       <nav className="navbar navbar-right navbar-expand-sm navbar-dark bg-dark">
-      <img src={Telstra} style={{width:"2%"}}/>
+      <img src={Telstra} style={{width:"30px"}}/>
   <div className="navbar-brand">&nbsp;
   Hi {username}!</div>
   <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

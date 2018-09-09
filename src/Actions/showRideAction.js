@@ -1,4 +1,5 @@
 import axios from 'axios';
+import store from '../Store/index.js';
 
 function sendRides(response){
   return {
@@ -8,8 +9,9 @@ function sendRides(response){
 }
 
 export function fetchRides(show){
+  var baseLink = store.getState().login.baseLink
   return (dispatch)=>{
-    axios.get('http://192.168.43.78:3000/show_ride?show='+show).
+    axios.get(baseLink + 'show_ride?show='+show).
       then(json=>dispatch(sendRides(json)));
   }
 }

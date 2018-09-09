@@ -1,4 +1,5 @@
 import axios from 'axios';
+import store from '../Store/index.js';
 
 function offerRide(response){
   return {
@@ -8,8 +9,9 @@ function offerRide(response){
 }
 
 export function sendDetailsForOfferRide(rideDetails){
+  var baseLink = store.getState().login.baseLink
   return (dispatch)=>{
-    axios.post("http://192.168.43.78:3000/offer_ride",{
+    axios.post(baseLink + "offer_ride",{
       ...rideDetails
       // credentials:"same-origin"
     }).

@@ -26,12 +26,12 @@ class Login extends Component {
       <React.Fragment>
           <div className="container">
               <div className="row">
-                  <div className="col-sm-8">
-                    <img src={login} style={{width:"90%"}}/>
+                  <div className="col-md-8">
+                    <img src={login} style={{width:"90%",marginTop:"10%"}}/>
                   </div>
-                  <div className="col-sm-4">
+                  <div className="col-md-4">
                     <form className="form-group login-form">
-                      <div align="center" className="login"> <img src={Telstra} style={{width:"25%",marginLeft:"-20%"}}/><b>Telstra Car Pool </b> </div><br/>
+                      <div align="center" className="login"> <img src={Telstra} style={{width:"25%",marginLeft:"-20%"}}/><b>Login</b> </div>
                       <input className= "form-control" ref="username" type="text" name="username" placeholder="Username"/><br/>
                       <input className= "form-control" ref="password" type="password" name="password" placeholder="Password"/><br/>
                       <input className= "form-control btn btn-primary" type="button" name="login" value="Login" onClick={()=>{

@@ -21,6 +21,7 @@ class MyRide extends Component {
 
   render(){
     var message= this.props.rides.status == "cancelled"? "Ride Cancelled Successfully" : "No Rides Booked"
+    console.log("my ride component",this.props)
     return (
       <React.Fragment>
       {

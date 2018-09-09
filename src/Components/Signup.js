@@ -24,18 +24,18 @@ class Signup extends Component {
   render() {
     return (
       <React.Fragment>
-      <div class="container">
-      <div class="row">
-      <div class="col-lg-8 col-md-8 col-sx-0">
-        <img src={login} style={{width:"90%"}}/>
+      <div className="container">
+      <div className="row">
+      <div className="col-md-8">
+        <img src={login} style={{width:"90%",marginTop:"10%"}}/>
       </div>
-      <div class="col-lg-4 col-md-4 col-sm-12">
-      <form class="form-group login-form">
-      <div align="center" className="login"> <img src={Telstra} style={{width:"25%",marginLeft:"-20%"}}/><b>Telstra Car Pool </b> </div><br/>
-        <input class = "form-control" type="text" name="username" ref="username" placeholder="Username" required/><br/>
-        <input class = "form-control" type="email" name="email" ref="email" placeholder="example@xyz.com" required/><br/>
-        <input class = "form-control" type="password" name="password" ref="password" placeholder="Password" required/><br/><br/>
-        <input class = "form-control btn btn-success" type="button" name="signup" value="Signup" onClick={()=>{
+      <div className="col-md-4 col">
+      <form className="form-group login-form">
+      <div align="center" className="login"> <img src={Telstra} style={{width:"25%",marginLeft:"-20%"}}/><b>Signup</b> </div>
+        <input className = "form-control" type="text" name="username" ref="username" placeholder="Username" required/><br/>
+        <input className = "form-control" type="email" name="email" ref="email" placeholder="example@xyz.com" required/><br/>
+        <input className = "form-control" type="password" name="password" ref="password" placeholder="Password" required/><br/>
+        <input className = "form-control btn btn-success" type="button" name="signup" value="Signup" onClick={()=>{
 
           this.props.onSignup({
             username: this.refs.username.value,
@@ -49,7 +49,7 @@ class Signup extends Component {
       </div>
       { this.props.status==200? (
         <Redirect to='/'/>
-      ):(this.props.status!==""?(<div class="alert alert-warning fixed-top" align="center" role="alert">
+      ):(this.props.status!==""?(<div className="alert alert-warning fixed-top" align="center" role="alert">
         Signup Failed.
       </div>):(null))
       }

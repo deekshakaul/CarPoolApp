@@ -1,7 +1,8 @@
 
 
 var loginReducer = (state={
-  status:''
+  status:'',
+  baseLink:"http://10.69.158.79:3000/"
 },action)=>{
     switch(action.type){
       case "LOGIN":
