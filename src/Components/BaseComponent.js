@@ -16,9 +16,16 @@ class BaseComponent extends Component {
     return (
       <React.Fragment>
       {
-        window.location !='http://localhost:3000/'?(<Header/>):("")
+        window.location !='http://localhost:3000/' && window.location !='http://localhost:3000/signup'?(<Header/>):("")
       }
       {this.props.children}
+      <footer className="page-footer fixed-bottom font-small" style={{background:"#212529"}}>
+
+        <div className="footer-copyright text-center py-3" style={{color:"white"}}>© 2018 Copyright:
+          <a href="https://mdbootstrap.com/bootstrap-tutorial/" style={{color:"white"}}> Telstra Car Pool</a>
+        </div>
+
+      </footer>
       </React.Fragment>
     );
   }

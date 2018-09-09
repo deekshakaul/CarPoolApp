@@ -1,148 +1,136 @@
 import React, { Component } from 'react';
 import RideRow from './RideRow';
+import BookRide from './BookRide';
+import {Modal,ModalBody,ModalFooter,ModalHeader,Button} from 'reactstrap';
 import Header from './Header';
-
+import noRides from '../showRidesBackground.jpg';
 
 class ShowRides extends Component {
+
   constructor(props){
     super(props);
     this.state={
-      rides:[
-        {
-          startPoint:"Infosys",
-          endPoint:"333",
-          availableSeats:4,
-          car:"xyz",
-          name:"abc",
-          id:"653"
-        },
-        {
-          startPoint:"333",
-          endPoint:"Infosys",
-          availableSeats:4,
-          car:"xyz",
-          name:"abc",
-          id:"653"
-        },
-        {
-          startPoint:"333",
-          endPoint:"Infosys",
-          availableSeats:4,
-          car:"xyz",
-          name:"abc",
-          id:"653"
-        },
-        {
-          startPoint:"333",
-          endPoint:"Infosys",
-          availableSeats:4,
-          car:"xyz",
-          name:"abc",
-          id:"653"
-        },
-        {
-          startPoint:"333",
-          endPoint:"Infosys",
-          availableSeats:4,
-          car:"xyz",
-          name:"abc",
-          id:"653"
-        },
-        {
-          startPoint:"333",
-          endPoint:"Infosys",
-          availableSeats:4,
-          car:"xyz",
-          name:"abc",
-          id:"653"
-        },
-        {
-          startPoint:"333",
-          endPoint:"Infosys",
-          availableSeats:4,
-          car:"xyz",
-          name:"abc",
-          id:"653"
-        }
-      ],
-      childComponent :[]
+      show:"all",
+      modal:false,
+      currentRide:{},
+      bookedRide:false
     }
-    this.setRides = this.setRides.bind(this);
-    this.getRidesToInfosys = this.getRidesToInfosys.bind(this);
-    this.getRidesFromInfosys = this.getRidesFromInfosys.bind(this);
+    this.toggle = this.toggle.bind(this);
+    this.showAlert = this.showAlert.bind(this);
+  }
+
+  showAlert(){
+    return (<div className="alert alert-info">
+      Ride Booked Successfuly
+    </div>)
   }
 
   componentDidMount(){
-    if(this.state.childComponent.length == 0)
-    {
-      this.setState({childComponent:this.state.rides.map(eachRide => <RideRow {...eachRide}/>)});
-    }
-
+    this.props.fetchRides(this.state.show);
   }
-
-  getRidesFromInfosys(){
-    const result = this.state.rides.filter(ride => ride.startPoint== "Infosys");
+  toggle(rideDetails) {
+    console.log("uuuuuuuuuuuuuuuu",rideDetails)
     this.setState({
-      fromInfosys : result
-    })
+      modal: !this.state.modal,
+      currentRide:rideDetails
+
+    });
   }
-
-  getRidesToInfosys(){
-    const result = this.state.rides.filter(ride => ride.endPoint== "Infosys");
-    this.setState({
-      toInfosys : result
-    })
-  }
-
-  setRides(event){
-    var rides=[];
-
-    if (event.target.value =="from") {
-      var result = this.state.rides.filter(ride => ride.startPoint== "Infosys");
-      this.setState({
-        fromInfosys : result
-      })
-      if(this.state.fromInfosys){
-        this.setState({childComponent:this.state.fromInfosys.map(eachRide => <RideRow {...eachRide}/>)})
-      }
-    }
-    else if(event.target.value == "to"){
-      var result = this.state.rides.filter(ride => ride.endPoint== "Infosys");
-      this.setState({
-        toInfosys : result
-      })
-      if(this.state.toInfosys){
-        this.setState({childComponent:this.state.toInfosys.map(eachRide => <RideRow {...eachRide}/>)})
-      }
-    }
-    else{
-      this.setState({childComponent:this.state.rides.map(eachRide => <RideRow {...eachRide}/>)});
-    }
-
-  }
-
-  FetchRides(){
-    //api call
-  }
-
   render() {
-    console.log(this.state)
+    console.log(this.props.rides)
+    var message = sessionStorage.getItem('rideId')!=0? "Ride already booked":"No rides Available"
     return (
       <React.Fragment>
-      <br/><div align="center">
-      <button class="btn btn-dark" value="all" onClick={this.setRides} >Show All Rides</button>&nbsp;
-      <button class="btn btn-success" value="from" onClick={this.setRides}>From Infosys</button>&nbsp;
-      <button class="btn btn-success" value="to" onClick={this.setRides}>To Infosys</button>&nbsp;
-      </div>
-      <br/>
-      <table class="table">
-      <tr class="thead-dark">
-      <th style={{textAlign : "center"}}>Start Point</th>
-      <th style={{textAlign : "center"}}>End Point</th>
-      <th style={{textAlign : "center"}}>Seats Available</th>
-      </tr>
-      {this.state.childComponent}
-      </table>
+          {
+            this.props.rides.length == 0 || sessionStorage.getItem('rideId') !=0? (
+              <React.Fragment>
+              <div align="center">
+              <div className="alert alert-info" align="center">
+              {message}
+              </div>
+              <button class="btn btn-dark" value="all" onClick={()=>{
+                  this.props.fetchRides("all")}
+              }>Show All Rides</button>&nbsp;
+              <button class="btn btn-success" value="from" onClick={()=>{
+                  this.props.fetchRides("from")}
+              }>From Telstra</button>&nbsp;
+              <button class="btn btn-success" value="to" onClick={()=>{
+                  this.props.fetchRides("to")}
+              }>To Telstra</button>&nbsp;
+              <br/><br/>
+              <img style={{width:"25%"}} src={noRides} alt="noRides"/>
+
+              </div>
+              </React.Fragment>
+            ):(
+              <React.Fragment>
+              <br/>
+              <div align="center">
+              <button class="btn btn-dark" value="all" onClick={()=>{
+                  this.props.fetchRides("all")}
+              }>Show All Rides</button>&nbsp;
+              <button class="btn btn-success" value="from" onClick={()=>{
+                  this.props.fetchRides("from")}
+              }>From Telstra</button>&nbsp;
+              <button class="btn btn-success" value="to" onClick={()=>{
+                  this.props.fetchRides("to")}
+              }>To Telstra</button>&nbsp;
+              </div>
+              <br/>
+              <div className="container">
+              <div className="row">
+              <div className="col-md-2">
+              </div>
+              <div className="col-md-8">
+              <table className="table table-hover show-ride-table">
+                  <tr className="thead-dark">
+                  <th style={{textAlign : "center"}}>Start Point</th>
+                  <th style={{textAlign : "center"}}>End Point</th>
+                  <th style={{textAlign : "center"}}>Seats Available</th>
+                  </tr>
+                  <tbody>
+                  {this.props.rides.map(eachRide =>
+                    <RideRow
+                      id={eachRide.offerId}
+                      name={eachRide.name}
+                      car={eachRide.car}
+                      startPoint={eachRide.pickUp}
+                      endPoint={eachRide.destination}
+                      availableSeats={eachRide.seatsLeft}
+                      openModal={this.toggle}>
+                    </RideRow>
+                  )}
+                  </tbody>
+              </table>
+              </div>
+              </div>
+              </div>
+
+              <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} size="lg">
+              {
+                this.state.bookedRide == true?(<div className="alert alert-info" align="center">
+                  Ride Booked
+                </div>):(null)
+              }
+              <ModalHeader toggle={this.toggle}>Book Ride Here</ModalHeader>
+              <ModalBody>
+                <BookRide {...this.state.currentRide}/>
+              </ModalBody>
+              <ModalFooter>
+                <Button color="primary" onClick={()=>{
+                  this.props.bookRide(this.state.currentRide);
+                  this.setState({
+                    bookedRide:true
+                  })
+
+                }}>Book Ride</Button>{' '}
+                <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+              </ModalFooter>
+            </Modal>
+              </React.Fragment>
+            )
+          }
+
       </React.Fragment>
     );
   }

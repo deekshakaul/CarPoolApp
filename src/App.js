@@ -3,14 +3,16 @@ import {Provider} from 'react-redux';
 import logo from './logo.svg';
 import './App.css';
 import Header from'./Components/Header.js';
-import LoginContainer from'./Container/LoginContainer.js';
+import LoginContainer from'./Containers/LoginContainer.js';
+import ShowRidesContainer from'./Containers/ShowRidesContainer.js';
+import OfferRideContainer from'./Containers/OfferRideContainer.js';
+import MyRideContainer from './Containers/MyRideContainer.js';
 import ShowRides from'./Components/ShowRides.js';
 import OfferRide from'./Components/OfferRide.js';
-import BookRide from'./Components/BookRide.js';
-import Signup from'./Components/Signup.js';
+import SignupContainer from'./Containers/SignupContainer.js';
 import BaseComponent from'./Components/BaseComponent.js';
 import {BrowserRouter, Route} from 'react-router-dom';
-import store from './../Store/index.js';
+import store from './Store/index.js';
 
 class App extends Component {
   render() {
@@ -18,11 +20,11 @@ class App extends Component {
       <Provider store={store}>
       <BrowserRouter>
         <BaseComponent>
-      <Route exact path='/' component={LoginContainer}/>
-      <Route path='/show-ride' component={ShowRides}/>
-      <Route path='/offer-ride' component={OfferRide}/>
-      <Route path='/signup' component={Signup}/>
-
+          <Route exact path='/' component={LoginContainer}/>
+          <Route path='/show-ride' component={ShowRidesContainer}/>
+          <Route path='/offer-ride' component={OfferRideContainer}/>
+          <Route path='/signup' component={SignupContainer}/>
+          <Route path='/my-ride' component={MyRideContainer}/>
       </BaseComponent>
       </BrowserRouter>
       </Provider>

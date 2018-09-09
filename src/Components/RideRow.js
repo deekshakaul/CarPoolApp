@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import BookRide from './BookRide';
+import BookRideContainer from '../Containers/BookRideContainer';
+
 
 class RideRow extends Component {
   constructor(props){
@@ -9,19 +11,15 @@ class RideRow extends Component {
   render() {
     return (
       <React.Fragment>
-        <tr data-toggle="modal" data-target="#orderModal">
+        <tr data-toggle="modal" data-target="#orderModal" onClick={()=>{
+          console.log(sessionStorage,"*****************")
+          var ridee = sessionStorage.getItem('username');
+          this.props.openModal({...this.props,ridee:ridee});
+        }}>
           <td style={{textAlign : "center"}}>{this.props.startPoint}</td>
           <td style={{textAlign : "center"}}>{this.props.endPoint}</td>
           <td style={{textAlign : "center"}}>{this.props.availableSeats}</td>
         </tr>
-
-        <div id="orderModal" class="modal fade" style={{width:"80%"}} role="dialog" aria-labelledby="orderModal" aria-hidden="true">
-          <div class = "modal-dialog modal-lg">
-            <div class = "modal-content" >
-              <BookRide {...this.props}/>
-            </div>
-          </div>
-        </div>
       </React.Fragment>
     );
   }

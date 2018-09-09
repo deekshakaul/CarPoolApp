@@ -1,24 +1,18 @@
 import axios from 'axios';
 
 function onLogin(response){
+  console.log("response from login", response)
   return {
     type:"LOGIN",
     response
   }
 }
 
-
 export function validateCredentials(creds){
-  console.log('from validateCredentials action');
   return (dispatch)=>{
-    axios(url,{
-      method:'POST',
-      body:JSON.stringify(creds),
-      headers:{
-        "Content-type":"application/json"
-      },
-      credentials:"same-origin"
-    }).
+    axios.post('http://192.168.43.78:3000/login', {
+        ...creds
+      }).
       then(json=>dispatch(onLogin(json)));
   }
 }

@@ -1,10 +1,10 @@
 import {connect} from 'react-redux';
-import Login from './../Component/Login.js';
+import Login from './../Components/Login.js';
 import {validateCredentials} from './../Actions/loginActions.js';
 
 var mapStateToProps = (state)=>{
   return {
-    status:state.status
+    status:state.login.status
   }
 }
 
